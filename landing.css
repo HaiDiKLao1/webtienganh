@@ -1,34 +1,38 @@
 /* Tùy chỉnh CSS cho Landing Page */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Hiệu ứng mờ nền ảnh Hero Section */
 .hero-section {
-    position: relative;
-    padding: 180px 0; /* Tăng padding để khung ảnh rộng và cao ráo, vừa vặn hơn */
-    
-    /* ĐÃ GIẢM ĐỘ MỜ: Thay đổi opacity của lớp phủ màu từ 0.9 xuống 0.4 để ảnh rõ hơn */
-    background: linear-gradient(rgba(248, 249, 250, 0.4), rgba(248, 249, 250, 0.4)), 
-                url('https://jobtest.vn/hrblog/wp-content/uploads/2022/11/diem-chuan-dai-hoc-mat-ma-2-696x507.jpeg') center/cover no-repeat;
+  position: relative;
+  padding: 180px 0; /* Tăng padding để khung ảnh rộng và cao ráo, vừa vặn hơn */
+
+  /* ĐÃ GIẢM ĐỘ MỜ: Thay đổi opacity của lớp phủ màu từ 0.9 xuống 0.4 để ảnh rõ hơn */
+  background:
+    linear-gradient(rgba(248, 249, 250, 0.4), rgba(248, 249, 250, 0.4)),
+    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFLwGw1zsHixzZHNMIpYyi_XXCDWdEbyDgp6XZfpwHuQ&s=10")
+      center/cover no-repeat;
 }
 /* Thiết kế lại viền thẻ khóa học */
 .course-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 12px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  border-radius: 12px;
 }
 
 .course-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(220, 53, 69, 0.15) !important;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(220, 53, 69, 0.15) !important;
 }
 
 /* Sửa lại màu chữ trên link navbar khi hover */
 .navbar-nav .nav-link {
-    color: #495057;
-    transition: color 0.3s;
+  color: #495057;
+  transition: color 0.3s;
 }
 
 .navbar-nav .nav-link:hover {
-    color: #dc3545; /* Đỏ KMA */
+  color: #dc3545; /* Đỏ KMA */
 }
