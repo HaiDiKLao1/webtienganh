@@ -1,0 +1,161 @@
+/* Card styling */
+.card {
+  border-radius: 10px;
+}
+
+/* Table styling */
+.table-hover tbody tr:hover {
+  background-color: #fdf2f2;
+}
+
+/* Pagination */
+#parents-pagination .page-link {
+  color: #495057;
+  border-color: #dee2e6;
+  min-width: 36px;
+  text-align: center;
+  margin: 0 2px;
+}
+
+#parents-pagination .page-item.active .page-link {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+#parents-pagination .page-link:hover:not(.active .page-link) {
+  background-color: #fdf2f2;
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+#parents-pagination .page-item.disabled .page-link {
+  color: #adb5bd;
+}
+
+/* ===== Bảng dữ liệu - chiều cao thật được JS tính theo cửa sổ ===== */
+.table-responsive {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.table-responsive::-webkit-scrollbar {
+  display: none;
+  height: 0;
+}
+
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+  box-shadow: inset 0 -1px 0 #dee2e6;
+}
+
+/* Các cột dữ liệu cho phép copy bình thường */
+#parents-tbody td.cell-text {
+  cursor: text;
+  user-select: text;
+}
+
+/* ===== Checkbox tròn ===== */
+.select-checkbox {
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  border: 2px solid #ced4da;
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+#parents-tbody.selection-mode .select-checkbox {
+  display: inline-block;
+}
+
+.select-checkbox:checked {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.select-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Màu nền khi chọn dòng */
+.table-danger td {
+  background-color: #fde3e6 !important;
+}
+
+/* ===== KHUNG TÌM KIẾM HỌC SINH (RESPONSIVE) ===== */
+.search-results-container {
+  max-height: 25vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.search-results-container::-webkit-scrollbar {
+  width: 6px;
+}
+.search-results-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+.search-results-container::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1;
+  border-radius: 4px;
+}
+.search-results-container::-webkit-scrollbar-thumb:hover {
+  background-color: #a8a8a8;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 0.5px solid #dee2e6;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.search-result-item:hover {
+  background: #f8f9fa;
+}
+.search-result-item.selected {
+  background: #d1e7dd;
+  border-color: #198754;
+}
+
+.hs-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f8d7da;
+  color: #dc3545;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}

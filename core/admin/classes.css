@@ -1,0 +1,149 @@
+/* Card styling */
+.card {
+  border-radius: 10px;
+}
+
+/* Custom lại màu nền khi hover chuột vào hàng của bảng */
+#class-table-body tr {
+  transition: background-color 0.2s ease;
+}
+#class-table-body tr:hover {
+  background-color: rgba(220, 53, 69, 0.04) !important;
+}
+
+/* Custom cho Badge Mã Lớp */
+#class-table-body .badge {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding: 0.4em 0.6em;
+}
+
+/* Custom thanh dung lượng (Sĩ số) mượt hơn */
+.capacity-fill {
+  transition:
+    width 0.4s ease-in-out,
+    background-color 0.3s;
+}
+
+/* ===== Pagination (Đồng bộ) ===== */
+#class-pagination .page-link {
+  color: #495057;
+  border-color: #dee2e6;
+  min-width: 36px;
+  text-align: center;
+  margin: 0 2px;
+}
+
+#class-pagination .page-item.active .page-link {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+#class-pagination .page-link:hover:not(.active .page-link) {
+  background-color: #fdf2f2;
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+#class-pagination .page-item.disabled .page-link {
+  color: #adb5bd;
+}
+
+/* Custom lại màu của thanh Tab trong Modal Chi tiết Lớp */
+#classDetailTabs .nav-link {
+  color: #495057;
+  transition: all 0.2s ease-in-out;
+}
+#classDetailTabs .nav-link:hover {
+  color: #dc3545;
+  background-color: #fdf2f2;
+}
+#classDetailTabs .nav-link.active {
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+  border-color: #dc3545 !important;
+}
+
+/* ===== Bảng dữ liệu - chiều cao thật được JS tính theo cửa sổ ===== */
+.table-responsive {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.table-responsive::-webkit-scrollbar {
+  display: none;
+  height: 0;
+}
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+  box-shadow: inset 0 -1px 0 #dee2e6;
+}
+
+/* Các cột dữ liệu cho phép copy bình thường */
+#class-table-body td.cell-text {
+  cursor: text;
+  user-select: auto;
+}
+
+/* ===== Checkbox tròn ===== */
+.select-checkbox {
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  border: 2px solid #ced4da;
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+#class-table-body.selection-mode .select-checkbox {
+  display: inline-block;
+}
+
+.select-checkbox:checked {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.select-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Màu nền khi chọn dòng */
+.table-danger td {
+  background-color: #fde3e6 !important;
+}
+
+.class-code-link {
+  cursor: pointer;
+  color: #495057 !important;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.class-code-link:hover {
+  color: #fff !important;
+  background-color: #dc3545 !important;
+  text-decoration: underline;
+}

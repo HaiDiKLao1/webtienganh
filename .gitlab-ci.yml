@@ -1,0 +1,45 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_IMAGE: $CI_REGISTRY_IMAGE
+
+build_image:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  only:
+    - main
+  script:
+    - echo "Bắt đầu đóng gói mã nguồn HTML/CSS/JS..."
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $DOCKER_IMAGE:latest .
+    - docker push $DOCKER_IMAGE:latest
+    - echo "Đã đẩy Image Frontend lên GitLab Registry thành công!"
+
+deploy_to_server:
+  stage: deploy
+  image: alpine:latest
+  only:
+    - main
+  before_script:
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - echo "Đang kết nối tới máy chủ để cập nhật Frontend..."
+    - |
+      ssh -o StrictHostKeyChecking=no huy@$SERVER_IP "
+        cd ~/english-center && \
+        docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY && \
+        docker-compose pull frontend && \
+        docker-compose up -d --no-deps frontend
+      "
+    - echo "Deploy Frontend thành công! Kiểm tra trang web thôi nào."

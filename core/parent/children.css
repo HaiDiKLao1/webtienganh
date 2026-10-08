@@ -1,0 +1,111 @@
+/* Reset & Font */
+body {
+  background-color: transparent;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Calendar */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* Lưới dàn ngày */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.weekday {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+.weekday.sunday {
+  color: #dc3545;
+}
+
+/* Ô ngày trong lịch */
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #495057;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.cal-day:hover:not(.empty) {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+/* Trạng thái các ô lịch */
+.cal-day.active-day {
+  border: 2px solid #dc3545; /* Đỏ KMA */
+  background-color: #fff5f5;
+  color: #dc3545;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.15);
+}
+
+.cal-day.attended {
+  background-color: #198754;
+  color: #fff;
+  border-color: #198754;
+}
+
+.cal-day.absent {
+  background-color: #dc3545;
+  color: #fff;
+  border-color: #dc3545;
+}
+
+.cal-day.empty {
+  border: none;
+  cursor: default;
+  background: transparent;
+}
+
+/* Chấm nhỏ cho ngày có lịch nhưng chưa học */
+.dot {
+  width: 5px;
+  height: 5px;
+  background-color: #adb5bd;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+.cal-day.active-day .dot {
+  background-color: #dc3545;
+}
+
+/* Empty State ở cột chi tiết */
+.empty-state {
+  text-align: center;
+  color: #868e96;
+  margin: auto;
+}
+.empty-icon {
+  font-size: 3.5rem;
+  color: #e9ecef;
+}

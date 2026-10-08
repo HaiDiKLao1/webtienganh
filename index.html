@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMA English Center - Khơi nguồn tri thức</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center fw-bold text-danger" href="#">
+                <img src="/public/assets/logo.png" alt="Logo" width="40" height="40" class="me-2" onerror="this.src='https://via.placeholder.com/40/dc3545/ffffff?text=KMA'">
+                KMA English
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto fw-semibold">
+                    <li class="nav-item"><a class="nav-link px-3" href="#courses">Khóa học</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#team">Đội ngũ</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#news">Tin tức</a></li>
+                </ul>
+                <div id="auth-section">
+                    <a href="/login.html" class="btn btn-danger px-4 rounded-pill">Đăng nhập</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section d-flex align-items-center text-center">
+        <div class="container position-relative z-1">
+            <span class="badge bg-danger mb-3 px-3 py-2 rounded-pill">Tuyển sinh 2024</span>
+            <h1 class="display-4 fw-bold text-dark mb-3">Khơi nguồn tri thức,<br>kiến tạo tương lai</h1>
+            <p class="lead text-muted mb-4 mx-auto" style="max-width: 600px;">
+                Trung tâm giáo dục KMA mang đến môi trường học tập hiện đại với đội ngũ giáo viên giàu kinh nghiệm và phương pháp giảng dạy tiên tiến.
+            </p>
+            <div>
+                <a href="#courses" class="btn btn-danger btn-lg px-4 me-2 rounded-pill shadow">Đăng ký ngay</a>
+                <a href="#about" class="btn btn-outline-dark btn-lg px-4 rounded-pill bg-white">Tìm hiểu thêm</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Khóa học nổi bật</h2>
+                <p class="text-muted">Chương trình học được thiết kế phù hợp với từng độ tuổi, giúp học sinh phát triển toàn diện</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 course-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="icon-box bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    📚
+                                </div>
+                                <span class="badge border border-secondary text-secondary rounded-pill d-flex align-items-center">8-9 tuổi</span>
+                            </div>
+                            <h4 class="fw-bold mb-3">Lớp 3.1 – 2024</h4>
+                            <p class="text-muted small mb-1"><strong>Lịch học:</strong> Thứ 2, 4, 6</p>
+                            <p class="text-muted small mb-4"><strong>Thời gian:</strong> 14:00 - 16:00</p>
+                            <a href="#" class="btn btn-outline-danger w-100 rounded-pill">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 course-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="icon-box bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    📚
+                                </div>
+                                <span class="badge border border-secondary text-secondary rounded-pill d-flex align-items-center">9-10 tuổi</span>
+                            </div>
+                            <h4 class="fw-bold mb-3">Lớp 4.1 – 2024</h4>
+                            <p class="text-muted small mb-1"><strong>Lịch học:</strong> Thứ 3, 5, 7</p>
+                            <p class="text-muted small mb-4"><strong>Thời gian:</strong> 18:00 - 20:00</p>
+                            <a href="#" class="btn btn-outline-danger w-100 rounded-pill">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container py-4 text-center">
+            <h2 class="fw-bold mb-5">Học viên nói gì về KMA English?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="p-4 bg-light rounded-4">
+                        <p class="text-warning mb-2">★★★★★</p>
+                        <p class="fst-italic text-muted">"Giáo trình rất sát với thực tế, thầy cô nhiệt tình. Điểm IELTS của em đã tăng 1.5 chỉ sau 1 khóa!"</p>
+                        <h6 class="fw-bold mt-3">- Nguyễn Văn A -</h6>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-light rounded-4">
+                        <p class="text-warning mb-2">★★★★★</p>
+                        <p class="fst-italic text-muted">"Môi trường học tập chuyên nghiệp, các bạn trong lớp rất hòa đồng giúp mình tự tin giao tiếp hơn."</p>
+                        <h6 class="fw-bold mt-3">- Trần Thị B -</h6>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-light rounded-4">
+                        <p class="text-warning mb-2">★★★★★</p>
+                        <p class="fst-italic text-muted">"Phần mềm quản lý giúp phụ huynh theo dõi điểm danh và học phí cực kỳ tiện lợi và minh bạch."</p>
+                        <h6 class="fw-bold mt-3">- Phụ huynh em C -</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-light py-5 border-top">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <a class="d-flex align-items-center fw-bold text-danger fs-4 text-decoration-none mb-3" href="#">
+                        <img src="/public/assets/logo.png" alt="Logo" width="30" onerror="this.src='https://via.placeholder.com/30/dc3545/ffffff?text=K'"> 
+                        <span class="ms-2">KMA English</span>
+                    </a>
+                    <p class="text-muted small">Trung tâm giáo dục chất lượng cao, mang đến môi trường học tập hiện đại và phương pháp giảng dạy tiên tiến.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Liên hệ</h5>
+                    <p class="text-muted small mb-1">📍 141 Chiến Thắng, Tân Triều, Thanh Trì, Hà Nội</p>
+                    <p class="text-muted small mb-1">📞 0123 456 789</p>
+                    <p class="text-muted small">✉️ contact@kma-english.edu.vn</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Liên kết nhanh</h5>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Khóa học</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Đội ngũ giảng viên</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Tin tức</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-muted small mt-4 pt-4 border-top">
+                © 2026 KMA English. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="landing.js"></script>
+</body>
+</html>

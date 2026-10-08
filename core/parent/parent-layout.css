@@ -1,0 +1,112 @@
+/* Reset & Base */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9; /* Màu nền xám nhạt */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #212529; /* Đen xám đậm */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  color: white;
+  z-index: 1000;
+  transition: 0.3s;
+}
+
+.sidebar-logo {
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-bottom: 1px solid #4f5962;
+  text-align: center;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 10px 15px;
+  margin: 5px 15px;
+  color: #c2c7d0;
+  text-decoration: none;
+  transition: 0.3s;
+  border-radius: 8px; /* Bo tròn đều 4 góc */
+}
+
+.sidebar-menu li a:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu li a.active {
+  background-color: #dc3545; /* Đỏ chủ đạo */
+  color: white;
+}
+
+.menu-header {
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  color: #8a93a2;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* Main Content Area */
+.main-wrapper {
+  margin-left: 250px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: 0.3s;
+}
+
+/* Header */
+.top-header {
+  height: 60px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.sidebar.collapsed {
+  margin-left: -250px;
+}
+
+.main-wrapper.expanded {
+  margin-left: 0;
+}
+
+#content-wrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#main-content {
+  min-width: 100%;
+  max-width: 100%;
+  display: block;
+  overflow-x: visible;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}

@@ -1,0 +1,101 @@
+.card {
+  border-radius: 10px;
+}
+
+/* Table styling */
+.table-hover tbody tr:hover {
+  background-color: #fdf2f2;
+}
+
+/* Pagination */
+#course-pagination .page-link {
+  color: #495057;
+  border-color: #dee2e6;
+  min-width: 36px;
+  text-align: center;
+  margin: 0 2px;
+}
+
+#course-pagination .page-item.active .page-link {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+#course-pagination .page-link:hover:not(.active .page-link) {
+  background-color: #fdf2f2;
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+#course-pagination .page-item.disabled .page-link {
+  color: #adb5bd;
+}
+
+/* ===== Bảng dữ liệu - chiều cao thật được JS tính theo cửa sổ ===== */
+.table-responsive {
+  max-height: 60vh; /* giá trị tạm trước khi JS chạy, tránh giật layout */
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Các cột dữ liệu (trừ ô mã) cho phép bôi đen, copy bình thường */
+#course-table-body td.cell-text {
+  cursor: text;
+  user-select: text;
+}
+
+.table-responsive::-webkit-scrollbar {
+  display: none;
+  height: 0;
+}
+
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+  box-shadow: inset 0 -1px 0 #dee2e6;
+}
+
+/* ===== Checkbox tròn, chỉ hiện khi đang ở chế độ chọn (sau khi nhấn giữ) ===== */
+.select-checkbox {
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  border: 2px solid #ced4da;
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+/* Gắn class 'selection-mode' vào thẻ tbody bằng JS sẽ làm checkbox hiện lên */
+#course-table-body.selection-mode .select-checkbox {
+  display: inline-block;
+}
+
+.select-checkbox:checked {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.select-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+}

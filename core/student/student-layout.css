@@ -1,0 +1,86 @@
+/* Lưới dàn ngày chung */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.weekday {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+/* Ô ngày trong lịch */
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #495057;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.cal-day:hover:not(.empty) {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+/* Trạng thái các ô lịch */
+.cal-day.active-day {
+  border: 2px solid #dc3545;
+  background-color: #fff5f5;
+  color: #dc3545;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.15);
+}
+
+.cal-day.attended {
+  background-color: #198754;
+  color: #fff;
+  border-color: #198754;
+}
+
+.cal-day.absent {
+  background-color: #dc3545;
+  color: #fff;
+  border-color: #dc3545;
+}
+
+.cal-day.empty {
+  border: none;
+  cursor: default;
+  background: transparent;
+}
+
+/* Chấm nhỏ cho ngày có lịch nhưng chưa học */
+.dot {
+  width: 5px;
+  height: 5px;
+  background-color: #adb5bd;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+.cal-day.active-day .dot {
+  background-color: #dc3545;
+}
+
+/* Custom Scrollbar cho chi tiết ca học */
+#classDetail .overflow-auto::-webkit-scrollbar {
+  width: 6px;
+}
+#classDetail .overflow-auto::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}

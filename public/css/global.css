@@ -1,0 +1,35 @@
+/* --- CSS RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    /* Bảng màu chung */
+    --primary-color: #0f172a;
+    --primary-hover: #1e293b;
+    --accent-color: #3b82f6;
+    --text-main: #333333;
+    --text-muted: #64748b;
+    --bg-main: #f1f5f9;
+    --bg-white: #ffffff;
+    --border-color: #e2e8f0;
+    
+    /* Trạng thái */
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+}

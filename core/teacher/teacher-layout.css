@@ -1,0 +1,58 @@
+/* Sidebar Collapse/Expand Animation */
+#sidebar-container {
+    transition: all 0.3s ease-in-out;
+    width: 260px;
+}
+
+#sidebar-container.collapsed {
+    margin-left: -260px;
+}
+
+/* Header responsive */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+#toggle-sidebar-btn {
+    transition: all 0.3s ease-in-out;
+}
+
+#toggle-sidebar-btn:hover {
+    color: #495057 !important;
+}
+
+/* Tùy chỉnh thanh cuộn cho khu vực làm việc của giáo viên */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Hiệu ứng tương tác cho menu */
+.sidebar-menu .menu-item a {
+    transition: all 0.2s ease-in-out;
+    opacity: 0.85;
+}
+
+.sidebar-menu .menu-item a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    color: #ffffff !important;
+}
+
+/* Highlight mục đang chọn */
+.sidebar-menu .menu-item a.active {
+    background-color: var(--danger) !important;
+    color: var(--bg-white) !important;
+    opacity: 1;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.25);
+}

@@ -1,0 +1,36 @@
+/* Khung form gửi tin nhắn */
+.msg-form-wrapper {
+    border-left: 4px solid #0068ff; /* Tone màu xanh đặc trưng của Zalo */
+    border-radius: 12px;
+}
+
+/* Ô nhập nội dung tin nhắn */
+.msg-textarea {
+    resize: none;
+    background-color: #f8f9fa;
+}
+
+.msg-textarea:focus {
+    background-color: #fff;
+    border-color: #0068ff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 104, 255, 0.25);
+}
+
+/* Item trong danh sách lịch sử */
+.msg-history-item {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    transition: background-color 0.2s;
+}
+
+.msg-history-item:hover {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+}
+
+.msg-history-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}

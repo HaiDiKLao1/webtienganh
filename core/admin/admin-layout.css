@@ -1,0 +1,151 @@
+/* Sidebar Collapse/Expand Animation */
+#sidebar-container {
+    transition: all 0.3s ease-in-out;
+    width: 260px;
+}
+
+#sidebar-container.collapsed {
+    margin-left: -260px;
+}
+
+/* Header responsive */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+#toggle-sidebar-btn {
+    transition: all 0.3s ease-in-out;
+}
+
+#toggle-sidebar-btn:hover {
+    color: #495057 !important;
+}
+
+/* Custom Scrollbar cho vùng hiển thị nội dung chính */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Wrapper cho nội dung với khung cố định */
+#content-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Đặt min-width cố định cho main-content để tránh co rụt */
+#main-content {
+    min-width: 100%;
+    max-width: 100%;
+    display: block;
+    overflow-x: visible;
+}
+
+/* Hiệu ứng hover mềm mại cho item menu */
+.sidebar-menu .menu-item a {
+    transition: all 0.2s ease-in-out;
+    opacity: 0.85;
+}
+
+.sidebar-menu .menu-item a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    color: #ffffff !important;
+}
+
+/* Nổi bật tab đang chọn bằng màu đỏ chủ đạo */
+.sidebar-menu .menu-item a.active {
+    background-color: #dc3545 !important; /* Đỏ KMA */
+    color: #ffffff !important;
+    opacity: 1;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.25);
+}
+
+/* Container fluid trong admin - responsive */
+.container-fluid {
+    width: 100%;
+}
+
+/* Table responsive wrapper should scroll horizontally but hide its own native scrollbar */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+.table-responsive::-webkit-scrollbar {
+    display: none;
+    height: 0;
+}
+
+/* Cho phép bảng co nhỏ responsive, nhưng tối thiểu 600px trước khi scroll */
+table {
+    min-width: 600px;
+}
+
+/* Admin management tables: keep cells on one line and use outer horizontal scrollbar only */
+.card-body .table-responsive {
+    overflow-x: auto;
+}
+
+.card-body .table-responsive > table {
+    min-width: 1100px; /* adjust if you want larger threshold */
+    table-layout: auto; /* allow columns to size to content */
+}
+
+.card-body .table-responsive th,
+.card-body .table-responsive td {
+    white-space: nowrap; /* keep text on single line */
+}
+
+.card-body .table-responsive input[type="text"],
+.card-body .table-responsive textarea,
+.card-body .table-responsive .form-control {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Floating/sticky horizontal scrollbar (fixed to viewport bottom) */
+.h-scroll.floating-scroll {
+    position: fixed;
+    bottom: 12px;
+    height: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    z-index: 1050;
+    background: transparent;
+    border-radius: 6px;
+    display: block;
+    opacity: 0; pointer-events: none; transition: opacity 0.18s ease;
+}
+.h-scroll.floating-scroll.visible { opacity: 1; pointer-events: auto; }
+.h-scroll.floating-scroll.hidden { opacity: 0; pointer-events: none; }
+.h-scroll-inner { height: 1px; }
+.h-scroll::-webkit-scrollbar { height: 10px; }
+.h-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 6px; }
+.h-scroll::-webkit-scrollbar-track { background: transparent; }
+
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}

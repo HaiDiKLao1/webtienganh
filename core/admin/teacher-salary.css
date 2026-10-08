@@ -1,0 +1,160 @@
+/* Card styling */
+.card {
+  border-radius: 10px;
+}
+
+/* Table styling */
+.table-hover tbody tr:hover {
+  background-color: #fdf2f2;
+}
+
+/* Pagination */
+.pagination .page-link {
+  color: #495057;
+  border-color: #dee2e6;
+  min-width: 36px;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #dc3545;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+/* ===== Bảng dữ liệu - chiều cao thật được JS tính theo cửa sổ ===== */
+.table-responsive {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.table-responsive::-webkit-scrollbar {
+  display: none;
+  height: 0;
+}
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+  box-shadow: inset 0 -1px 0 #dee2e6;
+}
+
+/* Các cột dữ liệu cho phép copy bình thường */
+#salary-table-body td.cell-text {
+  cursor: text;
+  user-select: auto;
+}
+
+/* ===== Checkbox tròn ===== */
+.select-checkbox {
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  border: 2px solid #ced4da;
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+#salary-table-body.selection-mode .select-checkbox {
+  display: inline-block;
+}
+
+.select-checkbox:checked {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.select-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Màu nền khi chọn dòng */
+.table-danger td {
+  background-color: #fde3e6 !important;
+}
+
+/* Bill/Invoice style for modal */
+.salary-bill-box {
+  background-color: #f8f9fa;
+  border: 1px dashed #dee2e6;
+  border-radius: 8px;
+}
+/* Tối ưu hiển thị text dài cho các cột số liệu */
+.cell-text {
+  white-space: nowrap;
+}
+
+/* Thêm hiệu ứng cho modal */
+.modal-content {
+  border-radius: 12px;
+}
+.modal-header {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Các tuỳ biến màu trạng thái bổ sung */
+.bg-opacity-10 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+.bg-success.bg-opacity-10 {
+  background-color: rgba(25, 135, 84, 0.1) !important;
+}
+.bg-warning.bg-opacity-10 {
+  background-color: rgba(255, 193, 7, 0.1) !important;
+}
+/* Tối ưu hiển thị text cho các cột tiền tệ mới */
+.cell-text {
+  white-space: nowrap;
+}
+
+/* Bo góc cho các Modal mới tạo để đồng bộ thẩm mỹ */
+.modal-content {
+  border-radius: 12px;
+}
+.modal-header {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Các tuỳ biến màu nền Badge phụ trợ */
+.bg-opacity-10 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+.bg-success.bg-opacity-10 {
+  background-color: rgba(25, 135, 84, 0.1) !important;
+}
+.bg-warning.bg-opacity-10 {
+  background-color: rgba(255, 193, 7, 0.1) !important;
+}

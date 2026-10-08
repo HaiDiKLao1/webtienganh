@@ -1,0 +1,13 @@
+# Thư viện hoặc file rác
+node_modules/
+.DS_Store
+*.log
+*.tmp
+
+# File cấu hình IDE
+.vscode/
+.idea/
+
+# File backup hoặc nén
+*.zip
+*.rar

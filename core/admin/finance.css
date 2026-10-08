@@ -1,0 +1,103 @@
+/* Hiệu ứng nạp trang */
+.animate-fade-in {
+    animation: layoutFadeIn 0.35s ease-out forwards;
+}
+@keyframes layoutFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Định dạng thẻ Select lọc tháng */
+.finance-select {
+    border-radius: 8px !important;
+    background-color: #ffffff;
+    color: #333333;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid #e2e8f0 !important;
+}
+
+/* Kiểu dáng chung của thẻ Thống kê KPI */
+.stat-card {
+    border-radius: 16px !important;
+    background: #ffffff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.04) !important;
+}
+
+/* Chuột trỏ cho phần Drill-down */
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+/* Mã màu chữ đặc trưng theo ảnh mẫu */
+.text-thu { color: #1aa768 !important; }      
+.text-chi { color: #e63946 !important; }      
+.text-loinhuan { color: #0d6efd !important; }  
+.text-congno { color: #f1a80a !important; }   
+
+/* Nền mờ nhạt pastel (Soft Badges & Icon Box Backgrounds) */
+.bg-soft-success { background-color: rgba(26, 167, 104, 0.1) !important; }
+.bg-soft-danger { background-color: rgba(230, 57, 70, 0.1) !important; }
+.bg-soft-blue { background-color: rgba(13, 110, 253, 0.1) !important; }
+.bg-soft-yellow { background-color: rgba(241, 168, 10, 0.1) !important; }
+
+.badge-soft-success { color: #1aa768; background-color: rgba(26, 167, 104, 0.12); font-weight: 500; font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; }
+.badge-soft-danger { color: #e63946; background-color: rgba(230, 57, 70, 0.12); font-weight: 500; font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; }
+
+/* Khối biểu tượng góc phải của thẻ KPI */
+.stat-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Khung cố định biểu đồ nhằm bảo vệ tỉ lệ co giãn của Chart.js */
+.chart-area-wrapper {
+    position: relative;
+    height: 330px;
+    width: 100%;
+}
+
+/* UI Modal Bảng chi tiết */
+.modal-content {
+    border-radius: 12px;
+}
+.modal-header {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.table-responsive::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #ced4da;
+    border-radius: 4px;
+}
+.table-responsive thead.sticky-top th {
+    background-color: #f8f9fa;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    z-index: 10;
+}
+
+/* Pagination trong Modal */
+.pagination { margin: 0; }
+.pagination .page-link {
+    color: #495057;
+    border-color: #dee2e6;
+    border-radius: 6px;
+    margin: 0 3px;
+}
+.pagination .active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}

@@ -1,0 +1,227 @@
+<link rel="stylesheet" href="/core/admin/teachers.css" />
+
+<main class="container-fluid py-2 animate__animated animate__fadeIn">
+  <header class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h4 fw-bold mb-0">Quản lý Giáo viên</h1>
+    <div class="d-flex gap-2">
+      <button
+        id="btn-bulk-delete"
+        class="btn btn-outline-danger shadow-sm d-none"
+        onclick="window.teacherManager.deleteSelected()"
+      >
+        <i class="fa-solid fa-trash-can me-1"></i> Xóa (<span
+          id="selected-count"
+          >0</span
+        >)
+      </button>
+      <button
+        class="btn btn-danger shadow-sm"
+        onclick="window.teacherManager.openModal()"
+      >
+        <i class="fa-solid fa-user-plus me-1"></i> Thêm Giáo viên
+      </button>
+    </div>
+  </header>
+
+  <section class="card border-0 shadow-sm mb-4" aria-label="Bộ lọc và tìm kiếm">
+    <div class="card-body p-3">
+      <form class="row g-3" onsubmit="event.preventDefault()">
+        <div class="col-md-8">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0"
+              ><i class="fa-solid fa-magnifying-glass text-muted"></i
+            ></span>
+            <input
+              type="text"
+              class="form-control border-start-0 ps-0"
+              placeholder="Tìm kiếm theo mã GV, họ tên, email, sđt..."
+              oninput="window.teacherManager.onSearchInput(this.value)"
+            />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <select
+            class="form-select"
+            id="filter-status"
+            aria-label="Lọc theo trạng thái"
+            onchange="window.teacherManager.onStatusChange(this.value)"
+          >
+            <option value="">Tất cả trạng thái</option>
+            <option value="active">Hoạt động</option>
+            <option value="inactive">Đã khóa</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section
+    class="card border-0 shadow-sm overflow-hidden"
+    aria-label="Danh sách dữ liệu giáo viên"
+  >
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4" style="min-width: 130px">
+                <div class="d-flex align-items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="cb-select-all"
+                    class="select-checkbox m-0"
+                    onchange="
+                      window.teacherManager.toggleSelectAll(this.checked)
+                    "
+                  />
+                  <span>Mã GV</span>
+                </div>
+              </th>
+              <th>Giáo viên</th>
+              <th>Email</th>
+              <th>Số điện thoại</th>
+              <th>Giới tính</th>
+              <th>Lớp đang dạy</th>
+              <th>Lương</th>
+              <th>Trạng thái</th>
+              <th class="text-end pe-4">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="teachers-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="teachers-pagination"></div>
+  </section>
+</main>
+<div class="modal fade" id="teacherModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-light border-bottom-0">
+        <h5 class="modal-title fw-bold" id="teacherModalTitle">
+          Hồ sơ Giáo viên
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body p-4">
+        <form id="teacherForm">
+          <input type="hidden" id="gv_id" />
+          <div class="row g-4">
+            <div class="col-md-6" id="gv_code_container">
+              <label class="form-label text-muted small fw-bold"
+                >Mã Giáo viên</label
+              >
+              <input
+                type="text"
+                class="form-control bg-light"
+                id="gv_code"
+                placeholder="Ví dụ: GV001"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted small fw-bold"
+                >Họ và tên <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="gv_fullName"
+                placeholder="Ví dụ: Nguyễn Văn A"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted small fw-bold"
+                >Email (Tài khoản) <span class="text-danger">*</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="gv_email"
+                placeholder="Ví dụ: nguyenvana@gmail.com"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted small fw-bold"
+                >Số điện thoại <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="gv_phone"
+                placeholder="09xxxxxxxxx"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted small fw-bold"
+                >Ngày sinh <span class="text-danger">*</span></label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="gv_dob"
+                onchange="window.teacherManager.generateTeacherPass(this.value)"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted small fw-bold"
+                >Lương (VNĐ) <span class="text-danger">*</span></label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="gv_salary"
+                value="200000"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted small fw-bold"
+                >Giới tính <span class="text-danger">*</span></label
+              >
+              <select class="form-select" id="gv_gender">
+                <option value="">-- Chọn --</option>
+                <option value="male">Nam</option>
+                <option value="female">Nữ</option>
+              </select>
+            </div>
+
+            <div class="col-md-12" id="password_container">
+              <label class="form-label text-muted small fw-bold"
+                >Mật khẩu khởi tạo <span class="text-danger">*</span></label
+              >
+              <input
+                type="password"
+                class="form-control bg-light"
+                id="gv_password"
+                placeholder="Tự động tạo từ ngày sinh..."
+                readonly
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-top-0 px-4 pb-4">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+          Hủy bỏ
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger px-4"
+          onclick="window.teacherManager.saveData()"
+        >
+          Lưu thông tin
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/core/admin/teachers.js"></script>

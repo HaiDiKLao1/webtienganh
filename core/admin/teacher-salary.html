@@ -1,0 +1,226 @@
+<link rel="stylesheet" href="/core/admin/teacher-salary.css" />
+
+<main class="container-fluid py-2 animate__animated animate__fadeIn">
+  <header class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h4 fw-bold mb-0">Thanh toán lương Giáo viên</h1>
+    <div class="d-flex gap-2">
+      <button id="btn-bulk-delete" class="btn btn-outline-danger shadow-sm d-none" onclick="window.salaryManager.deleteSelected()">
+        <i class="fa-solid fa-trash-can me-1"></i> Xóa phiếu (<span id="selected-count">0</span>)
+      </button>
+      
+      <button class="btn btn-primary shadow-sm" style="background-color: #0068ff; border-color: #0068ff;" onclick="window.salaryManager.openUpdateSalaryModal()">
+        <i class="fa-solid fa-money-bill-trend-up me-1"></i> Điều chỉnh lương GV
+      </button>
+      
+      <button class="btn btn-danger shadow-sm" onclick="window.salaryManager.openCalculateModal()">
+        <i class="fa-solid fa-file-invoice-dollar me-1"></i> Tính/Chốt lương toàn bộ
+      </button>
+    </div>
+  </header>
+
+  <section class="card border-0 shadow-sm mb-4" aria-label="Bộ lọc và tìm kiếm">
+    <div class="card-body p-3">
+      <form class="row g-3" onsubmit="event.preventDefault()">
+        <div class="col-md-5">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+            <input type="text" id="search-salary" class="form-control border-start-0 ps-0" placeholder="Tìm tên hoặc mã giáo viên..." oninput="window.salaryManager.handleFilter()" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-text bg-white"><i class="fa-regular fa-calendar text-muted"></i></span>
+            <input type="month" id="filter-month" class="form-control cursor-pointer" onchange="window.salaryManager.handleFilter()" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <select id="filter-status" class="form-select cursor-pointer" onchange="window.salaryManager.handleFilter()">
+            <option value="">Tất cả trạng thái</option>
+            <option value="pending">Chưa thanh toán</option>
+            <option value="paid">Đã thanh toán</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="card border-0 shadow-sm overflow-hidden" aria-label="Danh sách dữ liệu lương">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4" scope="col" style="min-width: 80px">
+                <div class="d-flex align-items-center gap-2">
+                  <input type="checkbox" id="cb-select-all" class="select-checkbox m-0" onchange="window.salaryManager.toggleSelectAll(this.checked)" />
+                  <span>STT</span>
+                </div>
+              </th>
+              <th scope="col">Giáo viên</th>
+              <th scope="col">Kỳ lương</th>
+              <th scope="col">Lương cơ sở</th>
+              <th scope="col">Khấu trừ</th>
+              <th scope="col">Thực nhận</th>
+              <th scope="col">Trạng thái</th>
+              <th class="text-end pe-4" scope="col">Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody id="salary-table-body"></tbody>
+        </table>
+      </div>
+      <div id="salary-pagination"></div>
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="salaryDetailModal" tabindex="-1" aria-hidden="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <article class="modal-content border-0 shadow">
+      <header class="modal-header bg-light border-bottom-0">
+        <h2 class="modal-title h5 fw-bold text-dark">Chi tiết phiếu lương</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </header>
+      <section class="modal-body p-4">
+        <div class="salary-bill-box p-4 mb-3">
+          <div class="row mb-3 pb-3 border-bottom">
+            <div class="col-sm-6">
+              <h6 class="text-muted small fw-bold mb-1">Giáo viên</h6>
+              <div class="fw-bold text-dark fs-5" id="detail-teacher-name">---</div>
+              <div class="text-muted small" id="detail-teacher-code">Mã GV: ---</div>
+            </div>
+            <div class="col-sm-6 text-sm-end mt-3 mt-sm-0">
+              <h6 class="text-muted small fw-bold mb-1">Kỳ lương</h6>
+              <div class="fw-bold text-danger fs-5" id="detail-month">---</div>
+              <div class="mt-1" id="detail-status-badge"></div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-8 text-muted">Lương cơ bản (Snapshot):</div>
+            <div class="col-4 text-end fw-semibold text-dark" id="detail-snapshot-salary">0 đ</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-8 text-muted">Thời gian công tác (Ngày):</div>
+            <div class="col-4 text-end fw-semibold text-dark" id="detail-employed-days">0 ngày</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-8 text-muted">Số ngày nghỉ không lương:</div>
+            <div class="col-4 text-end fw-semibold text-danger" id="detail-unpaid-leaves">0 ngày</div>
+          </div>
+          <div class="row mb-3 pb-3 border-bottom">
+            <div class="col-8 text-muted">Khấu trừ nghỉ phép:</div>
+            <div class="col-4 text-end fw-semibold text-danger" id="detail-deduction">0 đ</div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-6 text-uppercase fw-bold text-muted">Tổng thực nhận</div>
+            <div class="col-6 text-end text-success fw-bold fs-4" id="detail-final-amount">0 đ</div>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-footer border-top-0 px-4 pb-4">
+        <input type="hidden" id="current-salary-id" />
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-success px-4 shadow-sm" id="btn-pay" onclick="window.salaryManager.markAsPaid()">
+          <i class="fa-solid fa-check-double me-1"></i> Xác nhận Đã thanh toán
+        </button>
+      </footer>
+    </article>
+  </div>
+</div>
+
+<div class="modal fade" id="calculateSalaryModal" tabindex="-1" aria-hidden="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <article class="modal-content border-0 shadow">
+      <header class="modal-header bg-danger text-white border-bottom-0">
+        <h5 class="modal-title h6 fw-bold"><i class="fa-solid fa-calculator me-2"></i> Kết Xuất Tính Lương (Đồng loạt)</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </header>
+      <section class="modal-body p-4">
+        <p class="text-muted small mb-3">Hệ thống sẽ gom nhóm toàn bộ giáo viên hợp lệ, tính toán ca dạy thực tế và tự động khấu trừ ngày phép theo chuẩn tháng được cấu hình.</p>
+        
+        <div class="mb-3">
+          <label class="form-label text-dark small fw-bold">Chọn tháng kết xuất <span class="text-danger">*</span></label>
+          <input type="month" id="calc-salary-month" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-dark small fw-bold">ID Giáo viên (Tùy chọn)</label>
+          <input type="number" id="calc-teacher-id" class="form-control" placeholder="Để trống nếu tính cho toàn bộ hệ thống">
+        </div>
+        
+        <input type="hidden" id="calc-force-recalculate" value="false">
+      </section>
+      <footer class="modal-footer border-top-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy bỏ</button>
+        <button type="button" class="btn btn-danger px-4 shadow-sm" id="btn-calculate" onclick="window.salaryManager.submitCalculateSalary(false)">
+          <i class="fa-solid fa-bolt me-1"></i> Bắt đầu chạy dữ liệu
+        </button>
+      </footer>
+    </article>
+  </div>
+</div>
+
+<div class="modal fade" id="updateSalaryModal" tabindex="-1" aria-hidden="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <article class="modal-content border-0 shadow">
+      <header class="modal-header text-white border-bottom-0" style="background-color: #0068ff !important;">
+        <h5 class="modal-title h6 fw-bold"><i class="fa-solid fa-money-bill-transfer me-2"></i> Điều chỉnh lương cơ bản</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </header>
+      <section class="modal-body p-4">
+        <div class="mb-3">
+          <label class="form-label text-dark small fw-bold">ID Hệ thống của Giáo viên <span class="text-danger">*</span></label>
+          <input type="number" id="mod-teacher-id" class="form-control" placeholder="VD: 125">
+        </div>
+        <div class="mb-3">
+          <label class="form-label text-dark small fw-bold">Mức lương gốc mới (VNĐ) <span class="text-danger">*</span></label>
+          <input type="number" id="mod-new-salary" class="form-control" placeholder="Ví dụ: 8000000">
+        </div>
+        <div class="mb-3">
+          <label class="form-label text-dark small fw-bold">Ngày bắt đầu áp dụng <span class="text-danger">*</span></label>
+          <input type="date" id="mod-applied-date" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label text-dark small fw-bold">Ghi chú thay đổi</label>
+          <textarea id="mod-salary-note" class="form-control" rows="2" placeholder="Lý do điều chỉnh..."></textarea>
+        </div>
+      </section>
+      <footer class="modal-footer border-top-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy bỏ</button>
+        <button type="button" class="btn btn-primary px-4 shadow-sm" style="background-color: #0068ff; border-color: #0068ff;" id="btn-update-salary" onclick="window.salaryManager.submitUpdateSalary()">
+          <i class="fa-solid fa-floppy-disk me-1"></i> Lưu thiết lập
+        </button>
+      </footer>
+    </article>
+  </div>
+</div>
+
+<div class="modal fade" id="confirmEarlySalaryModal" tabindex="-1" aria-labelledby="confirmEarlySalaryModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+          <div class="modal-header bg-warning text-dark border-bottom-0">
+              <h5 class="modal-title fw-bold" id="confirmEarlySalaryModalLabel">
+                  <i class="fa-solid fa-triangle-exclamation me-2"></i>Cảnh báo chốt lương sớm
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4 text-center">
+              <div class="mb-3">
+                  <i class="fa-solid fa-calendar-xmark text-warning pulse-icon" style="font-size: 3rem;"></i>
+              </div>
+              <p class="mb-0 text-secondary" id="early-salary-msg">
+                  Tháng này hiện chưa kết thúc, do đó dữ liệu các ca dạy có thể chưa phản ánh đầy đủ và chính xác nhất. 
+                  <br><br>
+                  <strong>Bạn có chắc chắn muốn cưỡng chế chốt bảng lương ngay bây giờ không?</strong>
+              </p>
+          </div>
+          <div class="modal-footer bg-light border-top-0 justify-content-center">
+              <button type="button" class="btn btn-secondary px-4 shadow-sm" data-bs-dismiss="modal">Hủy bỏ</button>
+              <button type="button" class="btn btn-warning px-4 shadow-sm fw-bold text-dark" onclick="window.salaryManager.confirmEarlyCalculate()">
+                  <i class="fa-solid fa-bolt me-1"></i> Đồng ý chốt sớm
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script src="/core/admin/teacher-salary.js"></script>

@@ -1,0 +1,9 @@
+.marketing-type-badge {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+/* Tùy chỉnh công tắc (switch) Bootstrap sang màu đỏ KMA */
+.form-switch .form-check-input:checked {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}

@@ -1,0 +1,215 @@
+.attendance-table {
+  min-width: 1100px;
+  table-layout: fixed;
+}
+
+.attendance-table .col-stt {
+  width: 70px;
+}
+
+.attendance-table .col-student {
+  width: 260px;
+}
+
+.attendance-table .col-status {
+  width: 520px;
+}
+
+.attendance-table .col-comment {
+  width: 300px;
+}
+
+.attendance-table th,
+.attendance-table td {
+  white-space: normal;
+  overflow: visible;
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+.attendance-table tbody tr:hover {
+  background-color: rgba(220, 53, 69, 0.04);
+}
+
+.attendance-radio {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.attendance-radio input[type="radio"] {
+  display: none;
+}
+
+.attendance-radio label {
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: #495057;
+  background-color: #fff;
+  min-width: 82px;
+  text-align: center;
+}
+
+.attendance-radio label:hover {
+  background-color: #f8f9fa;
+}
+
+.attendance-radio input[value="PRESENT"]:checked + label {
+  background-color: #198754;
+  color: #fff;
+  border-color: #198754;
+}
+
+.attendance-radio input[value="ABSENT"]:checked + label {
+  background-color: #dc3545;
+  color: #fff;
+  border-color: #dc3545;
+}
+
+.attendance-radio input[value="LATE"]:checked + label {
+  background-color: #fd7e14;
+  color: #fff;
+  border-color: #fd7e14;
+}
+
+.attendance-radio input[value="EXCUSED"]:checked + label {
+  background-color: #0dcaf0;
+  color: #fff;
+  border-color: #0dcaf0;
+}
+
+.attendance-radio input:disabled + label {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+#session-info-box {
+  border-left: 4px solid #dc3545 !important;
+}
+
+#btn-save-attendance:disabled {
+  cursor: not-allowed;
+}
+
+/* Session info enhancements */
+#session-info-box .session-meta-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6c757d;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+#session-info-box .session-meta-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.status-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-selector input[type="radio"] {
+  display: none;
+}
+
+.status-selector label {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #dee2e6;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  color: #495057;
+  background: #fff;
+  white-space: nowrap;
+}
+
+.status-selector label:hover {
+  border-color: #adb5bd;
+  background: #f8f9fa;
+}
+
+.status-selector input[value="STUDY"]:checked + label {
+  background: #198754;
+  color: #fff;
+  border-color: #198754;
+}
+
+.status-selector input[value="CANCELLED"]:checked + label {
+  background: #6c757d;
+  color: #fff;
+  border-color: #6c757d;
+}
+
+.status-selector input[value="SUBSTITUTE"]:checked + label {
+  background: #0d6efd;
+  color: #fff;
+  border-color: #0d6efd;
+}
+
+.session-lock-notice {
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.session-lock-notice.study {
+  color: #198754;
+}
+.session-lock-notice.cancel {
+  color: #6c757d;
+}
+.session-lock-notice.sub {
+  color: #0d6efd;
+}
+.session-lock-notice.upcoming {
+  color: #fd7e14;
+}
+
+.drop-zone {
+  border: 2px dashed #0d6efd;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.drop-zone.dragover {
+  background-color: #e9ecef;
+  border-color: #0a58ca;
+  transform: scale(1.02); /* Phóng to nhẹ khi kéo file vào */
+}

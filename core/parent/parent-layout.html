@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cổng Phụ Huynh | KMA English</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="parent-layout.css" />
+  </head>
+  <body>
+    <div class="d-flex vh-100 overflow-hidden bg-light">
+      <aside class="sidebar flex-shrink-0" id="sidebar">
+        <div class="sidebar-logo">
+          <i class="fa-solid fa-graduation-cap text-danger"></i> KMA English
+        </div>
+        <ul class="sidebar-menu">
+          <li class="menu-header">Quản lý thông tin</li>
+          <li>
+            <a href="#" data-page="children.html" class="menu-item">
+              <i class="fa-solid fa-user-graduate me-2"></i> Tình hình học tập
+            </a>
+          </li>
+          <li>
+            <a href="#" data-page="tuition.html" class="menu-item">
+              <i class="fa-solid fa-file-invoice-dollar me-2"></i> Học phí
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <div
+        class="main-wrapper d-flex flex-column flex-grow-1 overflow-hidden"
+        id="mainWrapper"
+      >
+        <header class="top-header border-bottom shadow-sm flex-shrink-0">
+          <div>
+            <i
+              class="fa-solid fa-bars me-3 text-secondary fs-5"
+              id="toggleSidebar"
+              style="cursor: pointer"
+            ></i>
+            <span class="font-weight-bold text-dark">Hệ thống Quản lý</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <span class="me-3 text-secondary"
+              >Phụ huynh:
+              <strong id="parentName" class="text-dark"
+                >Đang tải...</strong
+              ></span
+            >
+            <button class="btn btn-danger btn-sm rounded-1" id="btnLogout">
+              <i class="fa-solid fa-right-from-bracket me-1"></i> Đăng xuất
+            </button>
+          </div>
+        </header>
+
+        <div id="content-wrapper" class="flex-grow-1 overflow-auto">
+          <main id="main-content" class="p-4">
+            <div
+              class="d-flex justify-content-center align-items-center"
+              style="min-height: 400px"
+            >
+              <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Đang tải cấu trúc...</span>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/utils.js"></script>
+    <script src="/public/js/router.js"></script>
+    <script src="parent-layout.js"></script>
+  </body>
+</html>

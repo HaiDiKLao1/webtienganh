@@ -1,0 +1,78 @@
+/* Custom Header Thông tin lớp */
+.class-info-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #dc3545 !important;
+}
+
+/* Custom Nav Pills cho Trang Chi Tiết */
+#classDetailTabs .nav-link {
+  color: #495057;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+}
+
+#classDetailTabs .nav-link:hover {
+  color: #dc3545;
+  background-color: #fdf2f2;
+}
+
+#classDetailTabs .nav-link.active {
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+  border-color: #dc3545 !important;
+  box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2);
+}
+
+/* Bảng dữ liệu trong trang chi tiết */
+.detail-table-wrapper {
+  max-height: 75vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.detail-table-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.detail-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1;
+  border-radius: 4px;
+}
+.detail-table-wrapper thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+}
+
+.danger-switch:checked {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+.danger-switch:focus {
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+  border-color: #dc3545 !important;
+}
+
+.tab-pane .page-link {
+  color: #495057;
+  border-color: #dee2e6;
+  min-width: 34px;
+  text-align: center;
+  margin: 0 2px;
+}
+.tab-pane .page-item.active .page-link {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.tab-pane .page-link:hover:not(.active .page-link) {
+  background-color: #fdf2f2;
+  border-color: #dc3545;
+  color: #dc3545;
+}
+.tab-pane .page-item.disabled .page-link {
+  color: #adb5bd;
+}

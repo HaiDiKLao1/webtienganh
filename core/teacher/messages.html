@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="/core/teacher/messages.css">
+
+<div class="container-fluid py-2 fade-in">
+    <h4 class="fw-bold mb-4 text-dark">Liên lạc Phụ huynh</h4>
+    
+    <div class="row g-4">
+        <div class="col-md-7">
+            <div class="card border-0 shadow-sm msg-form-wrapper">
+                <div class="card-body p-4">
+                    <form id="teacherMsgForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Lớp đang phụ trách <span class="text-danger">*</span></label>
+                                <select class="form-select shadow-sm" id="msg-class-select" onchange="window.teacherMessages.loadStudents()">
+                                    <option value="">-- Chọn lớp --</option>
+                                    </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Người nhận <span class="text-danger">*</span></label>
+                                <select class="form-select shadow-sm" id="msg-student-select" disabled>
+                                    <option value="">-- Vui lòng chọn lớp --</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-12 mt-4">
+                                <label class="form-label small fw-bold d-flex justify-content-between">
+                                    <span>Nội dung tin nhắn <span class="text-danger">*</span></span>
+                                    <span class="text-primary"><i class="fa-solid fa-bolt me-1"></i>Mẫu nhanh</span>
+                                </label>
+                                <textarea class="form-control msg-textarea shadow-sm" id="msg-content" rows="6" placeholder="Nhập nội dung nhắc nhở, báo cáo học tập, bài tập về nhà..."></textarea>
+                                <small class="text-muted mt-2 d-block">
+                                    <i class="fa-brands fa-zalo text-primary me-1 fs-6"></i> Tin nhắn sẽ được tự động gửi qua Zalo OA của Trung tâm tới SĐT phụ huynh.
+                                </small>
+                            </div>
+                            
+                            <div class="col-md-12 text-end mt-4">
+                                <button type="button" class="btn btn-light border shadow-sm me-2" onclick="document.getElementById('teacherMsgForm').reset()">
+                                    <i class="fa-solid fa-broom me-1"></i> Xóa trắng
+                                </button>
+                                <button type="button" class="btn btn-primary px-4 shadow-sm" style="background-color: #0068ff; border-color: #0068ff;" onclick="window.teacherMessages.sendMessage()">
+                                    <i class="fa-solid fa-paper-plane me-1"></i> Gửi qua Zalo
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-5">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-2">
+                    <h6 class="fw-bold text-dark mb-0"><i class="fa-solid fa-clock-rotate-left text-primary me-2"></i>Lịch sử tin nhắn gần đây</h6>
+                </div>
+                <div class="card-body overflow-auto" style="max-height: 500px;">
+                    <div class="msg-history-list" id="msg-history-container">
+                        <div class="text-center py-4">
+                            <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/core/teacher/messages.js"></script>

@@ -1,0 +1,646 @@
+<link rel="stylesheet" href="/core/admin/class-detail.css" />
+
+<main class="container-fluid py-2 animate__animated animate__fadeIn">
+  <header class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex align-items-center gap-3">
+      <button
+        class="btn btn-light border shadow-sm fw-semibold"
+        onclick="window.classDetailManager.goBack()"
+      >
+        <i class="fa-solid fa-arrow-left me-2"></i> Trở về
+      </button>
+      <h1 class="h4 fw-bold mb-0">Chi tiết Lớp học</h1>
+    </div>
+    <div>
+      <span
+        class="badge bg-danger bg-opacity-10 text-danger border border-danger-subtle fs-6"
+        id="cd-class-code"
+        >Đang tải...</span
+      >
+    </div>
+  </header>
+
+  <div
+    class="card border-0 shadow-sm mb-4"
+    style="border-left: 4px solid #dc3545 !important"
+  >
+    <div class="card-body p-4">
+      <div class="row align-items-center text-center text-md-start g-3">
+        <div class="col-md-2 border-end">
+          <div class="text-muted small fw-bold mb-1">Tên Lớp</div>
+          <h5 class="fw-bold text-dark mb-0" id="cd-class-name">---</h5>
+          <small class="text-muted" id="cd-class-code-sub">---</small>
+        </div>
+
+        <div class="col-md-2 border-end">
+          <div class="text-muted small fw-bold mb-1">Khóa học</div>
+          <div id="cd-course-name">
+            <span class="spinner-border spinner-border-sm text-danger"></span>
+          </div>
+        </div>
+
+        <div class="col-md-2 border-end">
+          <div class="text-muted small fw-bold mb-1">Khối & Năm học</div>
+          <div id="cd-grade-year" class="fw-medium text-dark">---</div>
+        </div>
+
+        <div class="col-md-2 border-end">
+          <div class="text-muted small fw-bold mb-1">Sĩ số</div>
+          <div id="cd-capacity" class="fw-medium text-dark">---</div>
+        </div>
+
+        <div class="col-md-2 border-end">
+          <div class="text-muted small fw-bold mb-1">Học phí</div>
+          <div id="cd-fee" class="fw-semibold text-success fs-6">---</div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="text-muted small fw-bold mb-1">Trạng thái</div>
+          <div id="cd-status">---</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+      <nav aria-label="Điều hướng tab chi tiết">
+        <ul
+          class="nav nav-pills mb-4 gap-2 border-bottom pb-3"
+          id="classDetailTabs"
+          role="tablist"
+        >
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              data-bs-toggle="tab"
+              data-bs-target="#tab-students"
+              type="button"
+              role="tab"
+            >
+              <i class="fa-solid fa-user-graduate me-2"></i> Học sinh
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              data-bs-toggle="tab"
+              data-bs-target="#tab-teachers"
+              type="button"
+              role="tab"
+            >
+              <i class="fa-solid fa-chalkboard-user me-2"></i> Giáo viên
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              data-bs-toggle="tab"
+              data-bs-target="#tab-courses"
+              type="button"
+              role="tab"
+            >
+              <i class="fa-solid fa-book-open me-2"></i> Khóa học
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              data-bs-toggle="tab"
+              data-bs-target="#tab-schedules"
+              type="button"
+              role="tab"
+            >
+              <i class="fa-regular fa-calendar-days me-2"></i> Lịch học
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="tab-content bg-white">
+        <section
+          class="tab-pane fade show active animate__animated animate__fadeIn"
+          id="tab-students"
+          role="tabpanel"
+        >
+          <header
+            class="d-flex justify-content-between align-items-center mb-3"
+          >
+            <div class="input-group shadow-sm" style="max-width: 350px">
+              <span class="input-group-text bg-white border-end-0"
+                ><i class="fa-solid fa-magnifying-glass text-muted"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control border-start-0 ps-0"
+                id="search-class-student"
+                placeholder="Tìm mã, tên, SĐT học sinh..."
+                oninput="window.classDetailManager.filterClassStudents()"
+              />
+            </div>
+            <div class="d-flex gap-2">
+              <button
+                id="btn-export-students"
+                class="btn btn-success btn-sm shadow-sm px-3"
+                onclick="window.classDetailManager.exportClassStudents()"
+              >
+                <i class="fa-solid fa-file-excel me-1"></i> Xuất Excel
+              </button>
+              <button
+                class="btn btn-danger btn-sm shadow-sm px-3"
+                onclick="window.classDetailManager.openAddStudentModal()"
+              >
+                <i class="fa-solid fa-plus me-1"></i> Thêm học sinh
+              </button>
+            </div>
+          </header>
+          <div class="detail-table-wrapper border rounded">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col" class="ps-3">Mã HS</th>
+                  <th scope="col">Họ Tên</th>
+                  <th scope="col">Liên hệ</th>
+                  <th scope="col">Học Phí</th>
+                  <th scope="col">Trạng thái</th>
+                  <th scope="col" class="text-end pe-3">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="detail-students-tbody"></tbody>
+            </table>
+          </div>
+          <div id="class-students-pagination" class="mt-2"></div>
+        </section>
+
+        <section
+          class="tab-pane fade animate__animated animate__fadeIn"
+          id="tab-teachers"
+          role="tabpanel"
+        >
+          <header
+            class="d-flex justify-content-between align-items-center mb-3"
+          >
+            <div class="input-group shadow-sm" style="max-width: 350px">
+              <span class="input-group-text bg-white border-end-0"
+                ><i class="fa-solid fa-magnifying-glass text-muted"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control border-start-0 ps-0"
+                id="search-class-teacher"
+                placeholder="Tìm mã, tên, SĐT giáo viên..."
+                oninput="window.classDetailManager.filterClassTeachers()"
+              />
+            </div>
+            <button
+              class="btn btn-danger btn-sm shadow-sm px-3"
+              onclick="window.classDetailManager.openAddTeacherModal()"
+            >
+              <i class="fa-solid fa-plus me-1"></i> Chỉ định giáo viên
+            </button>
+          </header>
+          <div class="detail-table-wrapper border rounded">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col" class="ps-3">Mã GV</th>
+                  <th scope="col">Họ Tên</th>
+                  <th scope="col">Vai trò</th>
+                  <th scope="col">Liên hệ</th>
+                  <th scope="col" class="text-end pe-3">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="detail-teachers-tbody"></tbody>
+            </table>
+          </div>
+          <div id="class-teachers-pagination" class="mt-2"></div>
+        </section>
+
+        <section
+          class="tab-pane fade animate__animated animate__fadeIn"
+          id="tab-courses"
+          role="tabpanel"
+        >
+          <header
+            class="d-flex justify-content-between align-items-center mb-3"
+          >
+            <div class="input-group shadow-sm" style="max-width: 350px">
+              <span class="input-group-text bg-white border-end-0"
+                ><i class="fa-solid fa-magnifying-glass text-muted"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control border-start-0 ps-0"
+                id="search-class-course"
+                placeholder="Tìm mã, tên khóa học..."
+                oninput="window.classDetailManager.filterClassCourses()"
+              />
+            </div>
+            <button
+              class="btn btn-danger btn-sm shadow-sm px-3"
+              onclick="window.classDetailManager.openAddCourseModal()"
+            >
+              <i class="fa-solid fa-plus me-1"></i> Thêm khóa học
+            </button>
+          </header>
+          <div class="detail-table-wrapper border rounded">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col" class="ps-3">Mã Khóa</th>
+                  <th scope="col">Tên Khóa Học</th>
+                  <th scope="col" class="text-center">Số buổi</th>
+                  <th scope="col">Học phí gốc</th>
+                  <th scope="col" class="text-end pe-3">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="detail-courses-tbody"></tbody>
+            </table>
+          </div>
+          <div id="class-courses-pagination" class="mt-2"></div>
+        </section>
+
+        <section
+          class="tab-pane fade animate__animated animate__fadeIn"
+          id="tab-schedules"
+          role="tabpanel"
+        >
+          <header
+            class="d-flex justify-content-between align-items-center mb-3"
+          >
+            <h3 class="h6 fw-bold mb-0 text-dark">Thời khóa biểu cố định</h3>
+            <button
+              class="btn btn-danger btn-sm shadow-sm px-3"
+              onclick="window.classDetailManager.openScheduleModal()"
+            >
+              <i class="fa-solid fa-clock me-1"></i> Xếp lịch học
+            </button>
+          </header>
+          <div class="detail-table-wrapper border rounded">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col" class="ps-3">Thứ</th>
+                  <th scope="col">Ca Học</th>
+                  <th scope="col">Từ giờ</th>
+                  <th scope="col">Đến giờ</th>
+                  <th scope="col" class="text-end pe-3">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="detail-schedules-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="addStudentModal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-light border-bottom-0">
+        <h5 class="modal-title fw-bold">Thêm Học Sinh Vào Lớp</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row g-0 h-100" style="min-height: 400px">
+          <div class="col-md-6 border-end p-4 bg-light bg-opacity-50">
+            <label class="fw-bold small text-muted mb-2"
+              >Tìm kiếm học sinh</label
+            >
+            <input
+              type="text"
+              class="form-control mb-3"
+              id="input-search-student-add"
+              placeholder="Nhập tên, số điện thoại hoặc email..."
+              oninput="
+                window.classDetailManager.searchStudentsToAdd(this.value)
+              "
+            />
+            <div
+              id="results-search-student"
+              class="detail-table-wrapper"
+              style="max-height: 300px"
+            >
+              <div class="text-center text-muted small py-3">
+                Gõ để tìm kiếm...
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <label class="fw-bold small text-muted mb-0"
+                >Danh sách đã chọn</label
+              >
+              <span
+                class="badge bg-danger rounded-pill"
+                id="count-selected-students"
+                >0</span
+              >
+            </div>
+            <div
+              id="list-selected-students"
+              class="detail-table-wrapper border rounded p-2 bg-white"
+              style="height: 300px"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0 px-4 pb-4">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+          Hủy bỏ
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger px-4"
+          id="btn-submit-add-students"
+          onclick="window.classDetailManager.submitAddStudents()"
+        >
+          Xác nhận Thêm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addTeacherModal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-light border-bottom-0">
+        <h5 class="modal-title fw-bold">Chỉ Định Giáo Viên Vào Lớp</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row g-0 h-100" style="min-height: 400px">
+          <div class="col-md-6 border-end p-4 bg-light bg-opacity-50">
+            <label class="fw-bold small text-muted mb-2"
+              >Tìm kiếm giáo viên</label
+            >
+            <input
+              type="text"
+              class="form-control mb-3"
+              id="input-search-teacher-add"
+              placeholder="Nhập tên, số điện thoại hoặc email..."
+              oninput="
+                window.classDetailManager.searchTeachersToAdd(this.value)
+              "
+            />
+            <div
+              id="results-search-teacher"
+              class="detail-table-wrapper"
+              style="max-height: 300px"
+            >
+              <div class="text-center text-muted small py-3">
+                Gõ để tìm kiếm...
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <label class="fw-bold small text-muted mb-0"
+                >Danh sách đã chọn</label
+              >
+              <span
+                class="badge bg-danger rounded-pill"
+                id="count-selected-teachers"
+                >0</span
+              >
+            </div>
+            <div
+              id="list-selected-teachers"
+              class="detail-table-wrapper border rounded p-2 bg-white"
+              style="height: 300px"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0 px-4 pb-4">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+          Hủy bỏ
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger px-4"
+          id="btn-submit-add-teachers"
+          onclick="window.classDetailManager.submitAddTeachers()"
+        >
+          Xác nhận Chỉ định
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addCourseModal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-light border-bottom-0">
+        <h5 class="modal-title fw-bold">Thêm Khóa Học Vào Lớp</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row g-0 h-100" style="min-height: 400px">
+          <div class="col-md-6 border-end p-4 bg-light bg-opacity-50">
+            <label class="fw-bold small text-muted mb-2"
+              >Tìm kiếm khóa học</label
+            >
+            <input
+              type="text"
+              class="form-control mb-3"
+              id="input-search-course-add"
+              placeholder="Nhập mã, tên khóa học..."
+              oninput="window.classDetailManager.searchCoursesToAdd(this.value)"
+            />
+            <div
+              id="results-search-course"
+              class="detail-table-wrapper"
+              style="max-height: 300px"
+            >
+              <div class="text-center text-muted small py-3">
+                Gõ để tìm kiếm...
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <label class="fw-bold small text-muted mb-0"
+                >Danh sách đã chọn</label
+              >
+              <span
+                class="badge bg-danger rounded-pill"
+                id="count-selected-courses"
+                >0</span
+              >
+            </div>
+            <div
+              id="list-selected-courses"
+              class="detail-table-wrapper border rounded p-2 bg-white"
+              style="height: 300px"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0 px-4 pb-4">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+          Hủy bỏ
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger px-4"
+          id="btn-submit-add-courses"
+          onclick="window.classDetailManager.submitAddCourses()"
+        >
+          Xác nhận Thêm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="scheduleModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-light border-bottom-0">
+        <h5 class="modal-title fw-bold" id="schedule-modal-title">
+          Thêm lịch học
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <form
+        id="schedule-form"
+        onsubmit="
+          event.preventDefault();
+          window.classDetailManager.saveSchedule();
+        "
+      >
+        <div class="modal-body p-4">
+          <input type="hidden" id="sc-id" />
+
+          <div class="mb-3">
+            <label class="form-label text-muted small fw-bold d-block"
+              >Chọn Thứ (có thể chọn nhiều)
+              <span class="text-danger">*</span></label
+            >
+            <div
+              class="btn-group w-100 flex-wrap"
+              role="group"
+              aria-label="Chọn ngày trong tuần"
+              id="sc-day-group"
+            >
+              <input
+                type="checkbox"
+                class="btn-check sc-day-checkbox"
+                name="sc-days"
+                id="day-2"
+                value="2"
+              />
+              <label class="btn btn-outline-danger" for="day-2">T2</label>
+
+              <input
+                type="checkbox"
+                class="btn-check sc-day-checkbox"
+                name="sc-days"
+                id="day-3"
+                value="3"
+              />
+              <label class="btn btn-outline-danger" for="day-3">T3</label>
+
+              <input
+                type="checkbox"
+                class="btn-check sc-day-checkbox"
+                name="sc-days"
+                id="day-4"
+                value="4"
+              />
+              <label class="btn btn-outline-danger" for="day-4">T4</label>
+
+              <input
+                type="checkbox"
+                class="btn-check sc-day-checkbox"
+                name="sc-days"
+                id="day-5"
+                value="5"
+              />
+              <label class="btn btn-outline-danger" for="day-5">T5</label>
+
+              <input
+                type="checkbox"
+                class="btn-check sc-day-checkbox"
+                name="sc-days"
+                id="day-6"
+                value="6"
+              />
+              <label class="btn btn-outline-danger" for="day-6">T6</label>
+
+              <input
+                type="checkbox"
+                class="btn-check sc-day-checkbox"
+                name="sc-days"
+                id="day-7"
+                value="7"
+              />
+              <label class="btn btn-outline-danger" for="day-7">T7</label>
+
+              <input
+                type="checkbox"
+                class="btn-check sc-day-checkbox"
+                name="sc-days"
+                id="day-CN"
+                value="CN"
+              />
+              <label class="btn btn-outline-danger" for="day-CN">CN</label>
+            </div>
+            <div id="day-error" class="text-danger small mt-1 d-none">
+              Vui lòng chọn ít nhất một ngày.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-muted small fw-bold"
+              >Ca học <span class="text-danger">*</span></label
+            >
+            <select class="form-select" id="sc-shift" required>
+              <option value="">-- Chọn ca --</option>
+              <option value="CA1">Ca sáng 1 (08:00 - 09:30)</option>
+              <option value="CA2">Ca sáng 2 (09:45 - 11:15)</option>
+              <option value="CA3">Ca chiều (14:00 - 15:30)</option>
+              <option value="CA4">Ca tối 1 (18:00 - 19:30)</option>
+              <option value="CA5">Ca tối 2 (20:00 - 21:30)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 px-4 pb-4">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+            Hủy bỏ
+          </button>
+          <button
+            type="submit"
+            class="btn btn-danger px-4"
+            id="btn-save-schedule"
+          >
+            Lưu lịch
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="/core/admin/class-detail.js"></script>

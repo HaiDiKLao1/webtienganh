@@ -1,0 +1,116 @@
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.weekday {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+.weekday.sunday {
+  color: #dc3545;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #495057;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.cal-day:hover:not(.empty) {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.cal-day.empty {
+  border: none;
+  cursor: default;
+  background: transparent;
+}
+
+.cal-day.active-day {
+  border: 2px solid #dc3545;
+  background-color: #fff5f5;
+  color: #dc3545;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.15);
+}
+
+/* Dấu chấm: bình thường màu xám, khi chọn mới đỏ */
+.dot {
+  width: 5px;
+  height: 5px;
+  background-color: #adb5bd;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+
+.cal-day.active-day .dot {
+  background-color: #dc3545;
+}
+
+.empty-state {
+  text-align: center;
+  color: #868e96;
+  margin: auto;
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  color: #e9ecef;
+}
+
+.teacher-session-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.teacher-session-card:last-child {
+  margin-bottom: 0;
+}
+
+.session-status-select {
+  max-width: 120px;
+  margin-left: auto;
+}
+
+.btn-disabled-class {
+  background-color: #adb5bd !important;
+  border-color: #adb5bd !important;
+  color: #fff !important;
+  cursor: not-allowed;
+}

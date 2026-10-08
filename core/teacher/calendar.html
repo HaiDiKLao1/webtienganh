@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="/core/teacher/calendar.css">
+
+<div class="container-fluid py-2 fade-in">
+  <h4 class="fw-bold mb-4 text-dark">Lịch dạy cá nhân</h4>
+
+  <div class="row g-4">
+    <div class="col-lg-4 col-md-5">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4 d-flex flex-column">
+          <div class="calendar-header">
+            <button class="btn btn-light border btn-sm text-secondary px-2" id="prevMonthBtn">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <span class="month-title" id="calendarMonthYear">Đang tải...</span>
+
+            <button class="btn btn-light border btn-sm text-secondary px-2" id="nextMonthBtn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="calendar-grid mb-2">
+            <div class="weekday">T2</div>
+            <div class="weekday">T3</div>
+            <div class="weekday">T4</div>
+            <div class="weekday">T5</div>
+            <div class="weekday">T6</div>
+            <div class="weekday">T7</div>
+            <div class="weekday sunday">CN</div>
+          </div>
+
+          <div class="calendar-grid flex-grow-1" id="calendarDays"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-md-7">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4 d-flex flex-column justify-content-center" id="classDetail">
+          <div class="empty-state">
+            <i class="far fa-calendar-check empty-icon"></i>
+            <h6 class="fw-bold text-dark mt-3">Chưa chọn ngày</h6>
+            <p class="small text-muted mb-0">
+              Vui lòng nhấp vào một ngày trên lịch để xem chi tiết buổi dạy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/core/teacher/calendar.js"></script>

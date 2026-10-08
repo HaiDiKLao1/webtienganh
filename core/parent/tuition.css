@@ -1,0 +1,31 @@
+/* Hiệu ứng nổi bật dòng */
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+/* Định dạng nhãn trạng thái */
+.badge-status {
+  font-size: 0.85rem;
+  padding: 0.4em 0.8em;
+  border-radius: 6px;
+  border: 1px solid rgba(25, 135, 84, 0.2);
+}
+
+/* Định dạng ảnh QR */
+.qr-image {
+  max-width: 250px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background-color: white;
+}
+
+.btn-pay-now {
+  transition: all 0.2s;
+}
+
+.btn-pay-now:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2) !important;
+}

@@ -1,0 +1,281 @@
+<link rel="stylesheet" href="/core/admin/finance.css">
+
+<div class="container-fluid p-4 animate-fade-in">
+    <div class="d-flex justify-content-between align-items-start mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1">Thống kê Tài chính</h3>
+            <p class="text-muted small mb-0">Cập nhật lần cuối: Hôm nay</p>
+        </div>
+        <div class="d-flex gap-2 align-items-center">
+            <button class="btn btn-outline-success shadow-sm fw-medium d-flex align-items-center gap-2 px-4 py-2 text-nowrap" onclick="window.financeManager.openExportModal()">
+                <i class="fa-solid fa-file-excel"></i> Xuất Sao Kê
+            </button>
+            <select id="financeTimeFilter" class="form-select finance-select shadow-sm border-0 px-3 py-2 fw-medium">
+                </select>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div id="card-tong-thu" class="card stat-card h-100 shadow-sm border-0 p-3 cursor-pointer" title="Nhấn để xem chi tiết học sinh đóng tiền">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small fw-semibold text-uppercase mb-2">Tổng Thu (Học phí)</p>
+                        <h3 id="kpi-thu" class="fw-bold text-thu mb-2">-- đ</h3>
+                        <span id="trend-thu" class="badge badge-soft-success d-none"></span>
+                    </div>
+                    <div class="stat-icon-box bg-soft-success text-thu">
+                        <i class="fa-solid fa-arrow-trend-up fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div id="card-tong-chi" class="card stat-card h-100 shadow-sm border-0 p-3 cursor-pointer" title="Nhấn để xem chi tiết khoản chi">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small fw-semibold text-uppercase mb-2">Tổng Chi (Lương, Vận hành)</p>
+                        <h3 id="kpi-chi" class="fw-bold text-chi mb-2">-- đ</h3>
+                        <span id="trend-chi" class="badge badge-soft-danger d-none"></span>
+                    </div>
+                    <div class="stat-icon-box bg-soft-danger text-chi">
+                        <i class="fa-solid fa-arrow-trend-down fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100 shadow-sm border-0 p-3">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small fw-semibold text-uppercase mb-2">Lợi Nhuận Ròng</p>
+                        <h3 id="kpi-loinhuan" class="fw-bold text-loinhuan mb-3">-- đ</h3>
+                    </div>
+                    <div class="stat-icon-box bg-soft-blue text-loinhuan">
+                        <i class="fa-solid fa-wallet fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div id="card-cong-no" class="card stat-card h-100 shadow-sm border-0 p-3 cursor-pointer" title="Nhấn để xem danh sách công nợ">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small fw-semibold text-uppercase mb-2">Công Nợ (Chưa thu)</p>
+                        <h3 id="kpi-congno" class="fw-bold text-congno mb-2">-- đ</h3>
+                        <span id="subtext-congno" class="text-muted small d-block">--</span>
+                    </div>
+                    <div class="stat-icon-box bg-soft-yellow text-congno">
+                        <i class="fa-solid fa-circle-exclamation fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7 col-xl-8">
+            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <div class="mb-3">
+                    <h5 id="chartMainTitle" class="fw-bold text-dark m-0">Biến động Dòng tiền</h5>
+                </div>
+                <div class="chart-area-wrapper" style="position: relative; height: 320px;">
+                    <canvas id="mainCashflowChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold text-dark m-0">Giao dịch mới nhất</h5>
+                </div>
+                <div id="latestTransactionsList" class="d-flex flex-column gap-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="revenueModal" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <article class="modal-content border-0 shadow">
+            <header class="modal-header bg-light border-bottom-0">
+                <h5 class="modal-title h6 fw-bold text-dark">
+                    <i class="fa-solid fa-hand-holding-dollar text-success me-2"></i>Chi tiết khoản thu: <span id="revenueMonthLabel" class="text-success"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </header>
+            <section class="modal-body p-4">
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th scope="col" style="min-width: 130px;">Thời gian</th>
+                                <th scope="col">Nội dung (Học sinh)</th>
+                                <th scope="col" class="text-end">Số tiền</th>
+                                <th scope="col" class="text-center">Phương thức</th>
+                            </tr>
+                        </thead>
+                        <tbody id="revenueTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+    </div>
+</div>
+
+<div class="modal fade" id="expenditureModal" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <article class="modal-content border-0 shadow">
+            <header class="modal-header bg-light border-bottom-0">
+                <h5 class="modal-title h6 fw-bold text-dark">
+                    <i class="fa-solid fa-list-check me-2"></i>Bảng kê chi tiết khoản chi: <span id="expenditureMonthLabel" class="text-danger"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </header>
+            <section class="modal-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex gap-2">
+                        <select id="expenditureTypeFilter" class="form-select form-select-sm w-auto shadow-sm cursor-pointer">
+                            <option value="ALL">Tất cả chi phí</option>
+                            <option value="SALARY">Tiền lương Giáo viên</option>
+                            <option value="OPERATING">Chi phí Vận hành</option>
+                        </select>
+                        <button class="btn btn-sm btn-primary shadow-sm" onclick="window.financeManager.openOperatingExpenseModal()">
+                            <i class="fa-solid fa-plus me-1"></i> Ghi nhận chi phí
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th scope="col" style="min-width: 130px;">Thời gian</th>
+                                <th scope="col">Hạng mục / Người nhận</th>
+                                <th scope="col">Phân loại</th>
+                                <th scope="col" class="text-end">Số tiền</th>
+                                <th scope="col" class="text-center" style="width: 90px;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenditureTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+    </div>
+</div>
+
+<div class="modal fade" id="debtModal" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <article class="modal-content border-0 shadow">
+            <header class="modal-header bg-light border-bottom-0">
+                <h5 class="modal-title h6 fw-bold text-dark">
+                    <i class="fa-solid fa-circle-exclamation text-warning me-2"></i>Chi tiết Học viên nợ học phí
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </header>
+            <section class="modal-body p-0">
+                <div class="table-responsive" style="max-height: 50vh; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th scope="col" class="ps-4">Học viên</th>
+                                <th scope="col">Khóa học</th>
+                                <th scope="col" class="text-end">Tổng phải đóng</th>
+                                <th scope="col" class="text-end">Đã nộp</th>
+                                <th scope="col" class="text-end text-danger fw-bold">Còn nợ</th>
+                                <th scope="col" class="text-center">Hạn đóng</th>
+                                <th scope="col" class="text-center pe-4">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="debtTableBody"></tbody>
+                    </table>
+                </div>
+                <div id="debtPagination" class="px-4 py-3 bg-white border-top"></div>
+            </section>
+        </article>
+    </div>
+</div>
+
+<div class="modal fade" id="exportModal" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <article class="modal-content border-0 shadow">
+            <header class="modal-header bg-success text-white border-bottom-0">
+                <h5 class="modal-title h6 fw-bold"><i class="fa-solid fa-file-excel me-2"></i> Kết Xuất Sao Kê Dòng Tiền</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </header>
+            <section class="modal-body p-4">
+                <p class="text-muted small mb-3">Chọn khoảng thời gian giới hạn tối đa 365 ngày để hệ thống trích xuất dữ liệu tài chính Excel (XLSX).</p>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label class="form-label text-dark small fw-bold">Từ ngày <span class="text-danger">*</span></label>
+                        <input type="date" id="exportStartDate" class="form-control">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label text-dark small fw-bold">Đến ngày <span class="text-danger">*</span></label>
+                        <input type="date" id="exportEndDate" class="form-control">
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-footer border-top-0">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-success px-4 shadow-sm text-nowrap" id="btn-submit-export" onclick="window.financeManager.submitExport()">
+                    <i class="fa-solid fa-download me-1"></i> Tải file Excel
+                </button>
+            </footer>
+        </article>
+    </div>
+</div>
+
+<div class="modal fade" id="operatingExpenseModal" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <article class="modal-content border-0 shadow">
+            <header class="modal-header bg-primary text-white border-bottom-0">
+                <h5 class="modal-title h6 fw-bold" id="opExpModalTitle">Ghi nhận Chi phí Vận hành</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </header>
+            <section class="modal-body p-4">
+                <input type="hidden" id="opExpId">
+                <div class="mb-3">
+                    <label class="form-label text-dark small fw-bold">Nội dung chi phí <span class="text-danger">*</span></label>
+                    <input type="text" id="opExpName" class="form-control" placeholder="VD: Đóng tiền điện tháng 6">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-dark small fw-bold">Số tiền (VNĐ) <span class="text-danger">*</span></label>
+                    <input type="number" id="opExpAmount" class="form-control" min="0" placeholder="0">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-dark small fw-bold">Kỳ ghi nhận (Tháng) <span class="text-danger">*</span></label>
+                    <input type="month" id="opExpMonth" class="form-control">
+                </div>
+            </section>
+            <footer class="modal-footer border-top-0">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary px-4 shadow-sm" id="btn-save-expense" onclick="window.financeManager.saveOperatingExpense()">Lưu chi phí</button>
+            </footer>
+        </article>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-body p-4 text-center">
+                <i class="fa-solid fa-triangle-exclamation text-danger fs-1 mb-3"></i>
+                <h6 class="fw-bold">Xác nhận xóa khoản chi?</h6>
+                <p class="text-muted small">Thao tác này sẽ xóa vĩnh viễn và ảnh hưởng đến sao kê luồng tiền.</p>
+                <input type="hidden" id="deleteExpenseId">
+                <div class="d-flex justify-content-center gap-2 mt-4">
+                    <button type="button" class="btn btn-light w-50" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger w-50" id="btn-confirm-delete" onclick="window.financeManager.deleteOperatingExpense()">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/core/admin/finance.js"></script>

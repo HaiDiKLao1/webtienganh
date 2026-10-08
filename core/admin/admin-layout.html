@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Quản trị - KMA English</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/global.css">
+    <link rel="stylesheet" href="admin-layout.css">
+</head>
+<body>
+
+    <div class="d-flex vh-100 overflow-hidden bg-light">
+        
+        <aside id="sidebar-container" class="bg-dark text-white shadow-sm flex-shrink-0" style="width: 260px;">
+        </aside>
+
+        <div class="d-flex flex-column flex-grow-1 overflow-hidden">
+            
+            <header id="header-container" class="bg-white border-bottom shadow-sm px-4 py-3 d-flex justify-content-between align-items-center flex-shrink-0">
+            </header>
+
+            <div id="content-wrapper" class="flex-grow-1 overflow-auto">
+                <main id="main-content" class="p-4">
+                    <div class="d-flex justify-content-center align-items-center" style="min-height: 400px;">
+                        <div class="spinner-border text-danger" role="status">
+                            <span class="visually-hidden">Đang tải cấu trúc...</span>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/utils.js"></script> 
+    <script src="/public/js/router.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="finance.js"></script>
+
+    <script src="admin-layout.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="/core/teacher/salary.css">
+<div class="container-fluid py-2 fade-in">
+    <h4 class="fw-bold mb-4 text-dark">Quản lý Lương Giáo viên</h4>
+
+    <div class="card border-0 shadow-sm mb-4 bg-white">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold">Tìm kiếm giáo viên</label>
+                    <input type="text" class="form-control" id="salary-keyword" placeholder="Mã GV, Tên, Email, SĐT..." oninput="window.teacherSalary.handleSearch()">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold">Chọn Tháng lương</label>
+                    <input type="month" class="form-control" id="salary-month-filter" onchange="window.teacherSalary.loadSalaries()">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold">Trạng thái</label>
+                    <select class="form-select" id="salary-status-filter" onchange="window.teacherSalary.loadSalaries()">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="pending">Chờ thanh toán</option>
+                        <option value="paid">Đã thanh toán</option>
+                    </select>
+                </div>
+                <div class="col-md-5 text-end">
+                    <button class="btn btn-danger px-4 shadow-sm" id="btn-calculate-salary" onclick="window.teacherSalary.triggerCalculateSalary()">
+                        <i class="fa-solid fa-calculator me-1"></i> Tính Toán Lương Tháng
+                    </button>
+                    <button class="btn btn-primary px-4 shadow-sm" style="background-color: #0068ff; border-color: #0068ff;" data-bs-toggle="modal" data-bs-target="#updateSalaryModal">
+                        <i class="fa-solid fa-user-pen me-1"></i> Điều Chỉnh Mức Lương
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm bg-white mb-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 salary-table">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4 col-stt">STT</th>
+                            <th class="col-teacher">Giáo viên</th>
+                            <th class="col-month text-center">Tháng</th>
+                            <th class="col-money">Lương snapshot</th>
+                            <th class="col-leave text-center">Nghỉ (Phép/Không)</th>
+                            <th class="col-leave text-center">Vượt hạn mức</th>
+                            <th class="col-money">Khấu trừ</th>
+                            <th class="col-money">Thực nhận</th>
+                            <th class="col-status text-center">Trạng thái</th>
+                            <th class="pe-4 text-end col-action">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salary-data-tbody">
+                        <tr>
+                            <td colspan="10" class="text-center py-4 text-muted">
+                                <div class="spinner-border spinner-border-sm text-danger me-2" role="status"></div> Đang tải danh sách bảng lương...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer bg-white border-top d-flex justify-content-between align-items-center p-3">
+            <span class="small text-muted" id="salary-pagination-info">Hiển thị 0/0 dòng dữ liệu</span>
+            <nav>
+                <ul class="pagination pagination-sm mb-0 justify-content-end" id="salary-pagination-list">
+                    </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateSalaryModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-dark text-white">
+                <h6 class="modal-title fw-bold"><i class="fa-solid fa-money-bill-trend-up me-2 text-warning"></i>Cập nhật lương cơ bản giáo viên</h6>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="updateTeacherSalaryForm">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">ID Giáo viên cần cập nhật <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="mod-teacher-id" placeholder="Nhập mã số ID định danh giáo viên">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Mức lương mới (VND) <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="mod-new-salary" placeholder="Ví dụ: 8000000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Ngày áp dụng <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="mod-applied-date">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Lý do thay đổi / Ghi chú điều chỉnh</label>
+                        <textarea class="form-control" id="mod-salary-note" rows="3" placeholder="Nhập lý do tăng lương, điều chỉnh bổ sung..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-light border-top-0">
+                <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-primary btn-sm px-4" id="btn-submit-update-salary" style="background-color: #0068ff; border-color: #0068ff;" onclick="window.teacherSalary.submitUpdateTeacherSalary()">
+                    <i class="fa-solid fa-floppy-disk me-1"></i> Lưu Thay Đổi
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/core/teacher/salary.js"></script>

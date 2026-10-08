@@ -1,0 +1,125 @@
+<link rel="stylesheet" href="/core/teacher/attendance.css" />
+
+<div class="container-fluid py-2 fade-in">
+  <h4 class="fw-bold mb-4 text-dark">Điểm danh & Đánh giá</h4>
+
+  <div id="session-info-box" class="card border-0 shadow-sm mb-3">
+    <div class="card-body">
+      <div class="text-muted">Đang tải thông tin buổi học...</div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 attendance-table">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4 col-stt">STT</th>
+              <th class="col-student">Học sinh</th>
+              <th class="col-status">Trạng thái điểm danh</th>
+              <th class="col-comment">Nhận xét cá nhân (Gửi Phụ huynh)</th>
+            </tr>
+          </thead>
+
+          <tbody id="students-att-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div
+      class="card-footer bg-white border-top-0 p-3 d-flex justify-content-end gap-2 flex-wrap"
+    >
+      <button
+        class="btn btn-outline-primary px-4 shadow-sm"
+        onclick="window.teacherAttendance.openImportModal()"
+      >
+        <i class="fa-solid fa-file-import me-1"></i> Nhập danh sách
+      </button>
+
+      <button
+        class="btn btn-outline-success px-4 shadow-sm"
+        onclick="window.teacherAttendance.exportAttendance()"
+      >
+        <i class="fa-solid fa-file-excel me-1"></i> Xuất danh sách
+      </button>
+
+      <button
+        id="btn-save-attendance"
+        class="btn btn-danger px-4 shadow-sm"
+        onclick="window.teacherAttendance.saveAttendance()"
+        disabled
+      >
+        <i class="fa-solid fa-cloud-arrow-up me-1"></i> Lưu Dữ Liệu Điểm Danh
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="importExcelModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title fs-6">
+          <i class="fa-solid fa-file-import me-2"></i>Nhập danh sách điểm danh
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body p-4 text-center">
+        <div id="drop-zone" class="drop-zone border-primary rounded-3 p-5">
+          <i
+            class="fa-solid fa-cloud-arrow-up text-primary mb-3"
+            style="font-size: 3rem"
+          ></i>
+          <h6 class="fw-bold text-dark">Kéo thả file Excel vào đây</h6>
+          <p class="text-muted small mb-3">hoặc</p>
+          <input
+            type="file"
+            id="file-input"
+            class="d-none"
+            accept=".xlsx, .xls, .csv"
+          />
+          <button
+            class="btn btn-primary btn-sm px-4"
+            onclick="document.getElementById('file-input').click()"
+          >
+            Chọn file từ máy
+          </button>
+        </div>
+
+        <div
+          id="file-info"
+          class="mt-3 d-none animate__animated animate__fadeIn"
+        >
+          <span
+            class="badge bg-success bg-opacity-10 text-success border border-success-subtle p-2"
+          >
+            <i class="fa-solid fa-file-excel me-1"></i>
+            <span id="file-name">filename.xlsx</span>
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+          Hủy
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary px-4"
+          id="btn-process-excel"
+          onclick="window.teacherAttendance.processImportedFile()"
+          disabled
+        >
+          Xác nhận nhập
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/core/teacher/attendance.js"></script>
